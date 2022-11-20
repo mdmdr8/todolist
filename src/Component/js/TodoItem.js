@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import '../css/TodoItem.css';
 
 // TodoItem 컴포넌트는 체크 값이 활성화되어 있으면 
@@ -11,17 +11,27 @@ import '../css/TodoItem.css';
 // onToggle : 체크박스를 on/off 시키는 함수
 // onRemove : TodoItem 을 삭제시키는 함수
 
-class TodoItem extends Component{
-    render() {
-        const {content, isComplete, id, onToggle, onRemove} = this.props;
+class TodoItem extends Component {
 
-        return(
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return this.props.isComplete !== nextProps.isComplete;
+    // }
+
+    render() {
+        const { content, isComplete, id, onToggle, onRemove } = this.props;
+        console.log(id);
+
+
+        return (
             <div className="todo-item" onClick={() => onToggle(id)}>
                 {/* e.stopPropagation()을 실행해야 해당 dom의 부모의 클릭 이벤트에 연결되어 있는 onToggle이 실행되지 않는다. */}
-                <div className='todo-item-remove' onClick={(e)=>{e.stopPropagation(); onRemove(id)}}>
-                    &items;
+                <div className='todo-item-remove' onClick={(e) => {
+                    e.stopPropagation();
+                    onRemove(id)
+                }}>
+                    &times;
                 </div>
-                <div className={`todo-item-content ${isComplete? 'isComplete':''}`}>
+                <div className={`todo-item-text ${isComplete && 'isComplete'}`}>
                     <div>
                         {content}
                     </div>
